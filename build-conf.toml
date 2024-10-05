@@ -1,0 +1,71 @@
+[pandoc]
+src = ["01.md"]
+out-name = "name.pdf"
+args = [
+    "--pdf-engine=xelatex",                                     # Использовать XeLaTeX как PDF-движок
+    "--template=templates/eisvogel-custom_mephi_titlepage.tex", # Шаблон для оформления документа
+    "--listings",                                               # Включить поддержку вставки кода в документе
+    # "--lua-filter=filters/strikeout.lua",  # Фильтр для зачёркивания текста
+    # "--lua-filter=filters/underline.lua",  # Фильтр для подчёркивания текста
+    "--lua-filter=filters/center-images.lua", # Фильтр для центрирования изображений
+    # "--lua-filter=filters/word-count.lua",  # Фильтр для подсчёта слов
+    "--metadata-file=tmp/metadata.yaml", # Файл с метаданными
+    "--bibliography=references.bib",     # Файл библиографии
+    "--citeproc",                        # Включить обработку цитирований
+    "--toc",                             # Включить оглавление
+    "--toc-depth=2",                     # Глубина оглавления
+]
+
+[metadata]
+title = "Название документа"
+subtitle = ""
+author = ["автор"]
+date = "осень 2024"
+lang = "ru"
+
+[metadata.latex]
+biblio-style = "ugost2008" # Стиль библиографии
+header-includes = '''
+header-includes: |
+    \usepackage{caption}
+    
+''' # Дополнительные включения в заголовок LaTeX
+
+# \captionsetup[figure]{labelformat=empty}  # Настройка подписей к рисункам
+# \captionsetup[table]{labelformat=empty}  # Настройка подписей к таблицам
+# \usepackage{sectsty}  # Пакет для настройки стилей секций
+# \sectionfont{\clearpage}  # Настройка шрифта секций
+# \RedeclareSectionCommand[
+#   beforeskip=-10pt plus -2pt minus -1pt,
+#     afterskip=1sp plus -1sp minus 1sp]{paragraph}  # Настройка параграфов
+# \RedeclareSectionCommand[
+#     beforeskip=-10pt plus -2pt minus -1pt,
+#     afterskip=1sp plus -1sp minus 1sp,
+#     indent=0pt]{subparagraph}  # Настройка подпараграфов
+
+[metadata.title-page]
+title-page = true # Включить титульную страницу
+# background = "titlepage.pdf"  # Фон для титульной страницы
+# logo = "logo.jpeg"  # Логотип для титульной страницы
+# logo-width = "35mm"  # Ширина логотипа
+rule-height = -1 # Высота линии на титульной странице
+
+[metadata.format]
+geometry = "left=2cm, right=2cm, top=2cm, bottom=2cm, footskip=5cm" # Поля страницы
+papersize = "a4"                                                    # Размер бумаги
+linkcolor = "NavyBlue"                                              # Цвет ссылок
+toc-own-page = true                                                 # Оглавление на отдельной странице
+listings-no-page-break = true                                       # Запрет разрыва страниц в блоках кода
+caption-justification = "centering"                                 # Выравнивание подписей по центру
+footnotes-pretty = false                                            # Настройка сносок
+book = true                                                         # Книжный формат
+disable-header-and-footer = false                                   # Включить заголовки и колонтитулы
+block-headings = true                                               # Заголовки блоков
+
+[metadata.format.header]
+right = '\rightmark' # Правый заголовок: текущий раздел
+left = '\thepage'    # Левый заголовок: номер страницы
+
+[metadata.format.footer]
+left = '\\\ '  # Левый колонтитул: пустой
+right = '\\\ ' # Правый колонтитул: пустой
