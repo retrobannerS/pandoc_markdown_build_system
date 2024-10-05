@@ -44,6 +44,14 @@ sudo xargs tlmgr install < tex_requirements.txt
 
 **ВАЖНО!** Исходники должны быть одного и того же формата: либо с расширением *".tex"*, либо с расширением *".md"*.
 
+Запуск *Python* скрипта создает выходной PDF:
+
+```bash
+python3 ./scripts/build.py
+```
+
+Можно попробовать запустить прямо из коробки. Соберется *example1.pdf*.
+
 ## Шаблоны
 
 В проекте приведены два шаблона, основанные на шаблоне [eisvogel](https://github.com/enhuiz/eisvogel?ysclid=m1wjhh6qka717625755).
