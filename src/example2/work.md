@@ -5,17 +5,16 @@
 Дана система с произвольной задержкой
 
 $$\dot{x} = Ax(t) + A_1 x (t-h), $$
-$$A = 
+$$A =
 \begin{bmatrix}
 1 &  0\\
 4 & 3\\
 \end{bmatrix},
-A_1 = 
+A_1 =
 \begin{bmatrix}
 -2 & 1 \\
 -2 & -6\\
 \end{bmatrix}$$
-
 
 $$\begin{bmatrix}
 \Phi & P - P_2^T (A+A_1)^T P_3 & -h P_2^T A_1\\
