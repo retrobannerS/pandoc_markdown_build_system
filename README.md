@@ -55,4 +55,8 @@ sudo xargs tlmgr install < tex_requirements.txt
 *eisvogel-custom_mephi_titlepage.tex:*
 
 - Добавлена титульная страница - пародия на ГОСТ:
+
+| без логотипа                                        | с логотипом                                         |
+| --------------------------------------------------- | --------------------------------------------------- |
 | <img src="/assets/title-page-01.jpg" width="400" /> | <img src="/assets/title-page-02.jpg" width="400" /> |
+
