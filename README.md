@@ -29,7 +29,7 @@ sudo xargs tlmgr install < tex_requirements.txt
 Для начала будет достаточно поменять название документа и автора в полях *title* и *author*.
 Обо всех флагах в настройке можно почитать в [документации pandoc](https://pandoc.org/MANUAL.html).
 
-Настройка титульной страницы производится внутри шаблона. Для *eisvogel-custom_mephi_titlepage.tex* это 935-1020 строки.
+Настройка титульной страницы производится внутри шаблона. Для *eisvogel-custom_mephi_titlepage.tex* это 935-1020 строки. Автор, дата и название документа вставляются автоматически из *metadata*.
 
 ## Использование
 
@@ -51,6 +51,8 @@ sudo xargs tlmgr install < tex_requirements.txt
 *eisvogel-custom.tex:*
 
 - Адаптированная версия оригинала для русского языка.
+- Мелкие обновления, связанные с цветами подписей к картинкам/блокам кода.
+- Правка, связанная с *[обновлением pandoc](https://pandoc.org/releases.html#pandoc-3.2.1-2024-06-24)*. Там изменилась вставка картинок, а шаблон не обновлялся с 2020.
 
 *eisvogel-custom_mephi_titlepage.tex:*
 
