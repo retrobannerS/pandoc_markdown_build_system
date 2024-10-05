@@ -1,13 +1,11 @@
 [pandoc]
-src = ["01.md"]
-out-name = "name.pdf"
 args = [
     "--pdf-engine=xelatex",                                     # Использовать XeLaTeX как PDF-движок
     "--template=templates/eisvogel-custom_mephi_titlepage.tex", # Шаблон для оформления документа
     "--listings",                                               # Включить поддержку вставки кода в документе
     # "--lua-filter=filters/strikeout.lua",  # Фильтр для зачёркивания текста
     # "--lua-filter=filters/underline.lua",  # Фильтр для подчёркивания текста
-    "--lua-filter=filters/center-images.lua", # Фильтр для центрирования изображений
+    # "--lua-filter=filters/center-images.lua", # Фильтр для центрирования изображений
     # "--lua-filter=filters/word-count.lua",  # Фильтр для подсчёта слов
     "--metadata-file=tmp/metadata.yaml", # Файл с метаданными
     "--bibliography=references.bib",     # Файл библиографии
@@ -15,6 +13,8 @@ args = [
     "--toc",                             # Включить оглавление
     "--toc-depth=2",                     # Глубина оглавления
 ]
+src = ["example1/main.tex"]
+out-name = "example1.pdf"
 
 [metadata]
 title = "Название документа"
