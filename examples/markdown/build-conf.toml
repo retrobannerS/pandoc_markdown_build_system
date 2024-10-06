@@ -5,8 +5,8 @@ args = [
     "--listings",                                               # Включить поддержку вставки кода в документе
     # "--lua-filter=filters/strikeout.lua",  # Фильтр для зачёркивания текста
     # "--lua-filter=filters/underline.lua",  # Фильтр для подчёркивания текста
-    "--lua-filter=filters/center-images.lua", # Фильтр для центрирования изображений
-    # "--lua-filter=filters/word-count.lua",  # Фильтр для подсчёта слов
+    # "--lua-filter=filters/center-images.lua", # Фильтр для центрирования изображений (не нужен, если пишете на LaTeX и вставляете картинки через него)
+    # "--lua-filter=filters/word-count.lua",  # Фильтр для подсчёта слов в документе
     "--metadata-file=tmp/metadata.yaml", # Файл с метаданными
     "--bibliography=references.bib",     # Файл библиографии
     "--citeproc",                        # Включить обработку цитирований
@@ -24,24 +24,31 @@ date = "осень 2024"
 lang = "ru"
 
 [metadata.latex]
-biblio-style = "ugost2008" # Стиль библиографии
+biblio-style = "ugost2008" # Стиль оформления списка источников
 header-includes = '''
 header-includes: |
     \usepackage{caption}
-    
+    \usepackage{sectsty}
+    \sectionfont{\clearpage}
 ''' # Дополнительные включения в заголовок LaTeX
 
-# \captionsetup[figure]{labelformat=empty}  # Настройка подписей к рисункам
-# \captionsetup[table]{labelformat=empty}  # Настройка подписей к таблицам
+# Протестированные включения
+# \usepackage[utf8]{inputenc} #может помочь, если проблема с распознаванием русского языка (вы сменили движок или шаблон)
+# \usepackage[normalem]{ulem} #может понадобиться для caption, но в этом шаблоне эта строка уже включена
+# \usepackage{caption} #пакет для подписей к рисункам
+# \captionsetup[figure]{labelformat=empty}  # Настройка подписей к рисункам(выключить "рис. N:")
+# \captionsetup[table]{labelformat=empty}  # Настройка подписей к таблицам(выключить "табл. N:")
 # \usepackage{sectsty}  # Пакет для настройки стилей секций
-# \sectionfont{\clearpage}  # Настройка шрифта секций
+# \sectionfont{\clearpage}  # Каждая секция с новой страницы
 # \RedeclareSectionCommand[
 #   beforeskip=-10pt plus -2pt minus -1pt,
-#     afterskip=1sp plus -1sp minus 1sp]{paragraph}  # Настройка параграфов
+#     afterskip=1sp plus -1sp minus 1sp]{paragraph}  # Настройка отступов параграфов
 # \RedeclareSectionCommand[
 #     beforeskip=-10pt plus -2pt minus -1pt,
 #     afterskip=1sp plus -1sp minus 1sp,
-#     indent=0pt]{subparagraph}  # Настройка подпараграфов
+#     indent=0pt]{subparagraph}  # Настройка отступов подпараграфов
+# \exhyphenpenalty=10000 #запрет переноса строк для верстальщика. Отключение этих двух строк помогает, если в блоках кода слишком длинные строки не переносятся.
+# \hyphenpenalty=10000 #
 
 [metadata.title-page]
 title-page = true # Включить титульную страницу
@@ -56,7 +63,7 @@ papersize = "a4"                                                    # Разме
 linkcolor = "NavyBlue"                                              # Цвет ссылок
 toc-own-page = true                                                 # Оглавление на отдельной странице
 listings-no-page-break = true                                       # Запрет разрыва страниц в блоках кода
-caption-justification = "centering"                                 # Выравнивание подписей по центру
+caption-justification = "centering"                                 # Выравнивание подписей к рисункам или таблицам по центру
 footnotes-pretty = false                                            # Настройка сносок
 book = true                                                         # Книжный формат
 disable-header-and-footer = false                                   # Включить заголовки и колонтитулы
