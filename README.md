@@ -58,9 +58,9 @@ python3 ./scripts/build.py
 
 ## Возможные выводы в терминал
 
-1.
+**1.**
 
-```bash 
+```bash
 [WARNING] Unusual conversion: to convert a .tex file to PDF, you get better results by using pdflatex (or lualatex or xelatex) directly, 
 try `pdflatex src/ ... .tex` instead of `pandoc src/ ... .tex -o ... .pdf`.
 ```
@@ -69,9 +69,9 @@ try `pdflatex src/ ... .tex` instead of `pandoc src/ ... .tex -o ... .pdf`.
 
 Я не обращаю внимание на этот вывод, потому что работать с *Pandoc* более удобно, чем с движком напрямую, хоть и идет потеря по времени компиляции.
 
-2. 
+**2.**
 
-```bash 
+```bash
 [WARNING] [makePDF] LaTeX Warning: Command \underbar has changed. Check if current package is valid.
 [WARNING] [makePDF] LaTeX Warning: Command \underline has changed. Check if current package is valid.
 ```
