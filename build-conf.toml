@@ -13,8 +13,8 @@ args = [
     "--toc",                             # Включить оглавление
     "--toc-depth=2",                     # Глубина оглавления
 ]
-src = ["example1/main.tex"]
-out-name = "example1.pdf"
+src = ["some document"]
+out-name = "output.pdf"
 
 [metadata]
 title = "Название документа"

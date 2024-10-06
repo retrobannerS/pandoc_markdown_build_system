@@ -50,7 +50,11 @@ sudo xargs tlmgr install < tex_requirements.txt
 python3 ./scripts/build.py
 ```
 
-Можно попробовать запустить прямо из коробки. Соберется *example1.pdf*.
+Папка *examples* независима и может быть удалена для личного использования этого шаблона. То же самое касается *README.md*, *title-page-01.jpg* и *title-page-02.jpg*
+
+## Примеры
+
+В корневой папке вы можете встретить *examples* - примеры сборки файлов в один PDF на основе *LaTeX* и *MarkDown*.
 
 ## Шаблоны
 
