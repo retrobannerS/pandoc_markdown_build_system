@@ -29,7 +29,7 @@ $$\Phi = P_2^T (A+A_1) + (A+A_1)^T P_2, P > 0, R > 0$$
 
 Схема моделирования была собрана. Опытным путём удалось установить значение $K_{OC} = 2.5$ - максимальное допустимое, то есть значение при котором система устойчива (это граница устойчивости).
 
-![Схема моделирования \label{fig:p1}](./assets/images/example2/1.png)
+![Схема моделирования \label{fig:p1}](./assets/images/1.png)
 
 ## Что-то там про колебательность
 
@@ -45,15 +45,15 @@ $$\Phi = P_2^T (A+A_1) + (A+A_1)^T P_2, P > 0, R > 0$$
 
 ## Графики
 
-![График $y(t)$ при $K_{OC} = 2$ \label{fig:p2}](./assets/images/example2/2.png){ width=80% }
+![График $y(t)$ при $K_{OC} = 2$ \label{fig:p2}](./assets/images/2.png){ width=80% }
 
-![График $y(t)$ при $K_{OC} = 2.3$ \label{fig:p3}](./assets/images/example2/3.png){ width=80% }
+![График $y(t)$ при $K_{OC} = 2.3$ \label{fig:p3}](./assets/images/3.png){ width=80% }
 
-![График $y(t)$ при $K_{OC} = 2.5$ \label{fig:p4}](./assets/images/example2/4.png){ width=80% }
+![График $y(t)$ при $K_{OC} = 2.5$ \label{fig:p4}](./assets/images/4.png){ width=80% }
 
 |                                                                        |                                                                          |
 | ---------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| ![Зеленые \label{fig:p5}](./assets/images/example2/5.png){ width=80% } | ![Оранжевые \label{fig:p6}](./assets/images/example2/6.png){ width=80% } |
+| ![Зеленые \label{fig:p5}](./assets/images/5.png){ width=80% } | ![Оранжевые \label{fig:p6}](./assets/images/6.png){ width=80% } |
 
 Максимальная колебательность наблюдается при $K_{OC} = 2.5$
 
