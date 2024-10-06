@@ -7,11 +7,12 @@ args = [
     # "--lua-filter=filters/underline.lua",  # Фильтр для подчёркивания текста
     # "--lua-filter=filters/center-images.lua", # Фильтр для центрирования изображений (не нужен, если пишете на LaTeX и вставляете картинки через него)
     # "--lua-filter=filters/word-count.lua",  # Фильтр для подсчёта слов в документе
-    "--metadata-file=tmp/metadata.yaml", # Файл с метаданными
-    "--bibliography=references.bib",     # Файл библиографии
-    "--citeproc",                        # Включить обработку цитирований
-    "--toc",                             # Включить оглавление
-    "--toc-depth=2",                     # Глубина оглавления
+    "--lua-filter=filters/pagebreak.lua", # Фильтр, позволяющий работать с BREAK__ (он его заменяет на \newpage)
+    "--metadata-file=tmp/metadata.yaml",  # Файл с метаданными
+    "--bibliography=references.bib",      # Файл библиографии
+    "--citeproc",                         # Включить обработку цитирований
+    "--toc",                              # Включить оглавление
+    "--toc-depth=2",                      # Глубина оглавления
 ]
 src = ["some document"]
 out-name = "output.pdf"
