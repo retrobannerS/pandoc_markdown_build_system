@@ -56,6 +56,35 @@ python3 ./scripts/build.py
 
 В корневой папке вы можете встретить *examples* - примеры сборки файлов в один PDF на основе *LaTeX* и *MarkDown*.
 
+## Возможные выводы в терминал
+
+1.
+
+```bash 
+[WARNING] Unusual conversion: to convert a .tex file to PDF, you get better results by using pdflatex (or lualatex or xelatex) directly, 
+try `pdflatex src/ ... .tex` instead of `pandoc src/ ... .tex -o ... .pdf`.
+```
+
+В данном случае *Pandoc* советует использовать движок *LaTeX* напрямую, мол зачем ты используешь *Pandoc*, если ты все равно пишешь на чистом *LaTeX*, можешь использовать другую программу, которая специально для этого предназначалась, она еще и эффективнее будет.
+
+Я не обращаю внимание на этот вывод, потому что работать с *Pandoc* более удобно, чем с движком напрямую, хоть и идет потеря по времени компиляции.
+
+2. 
+
+```bash 
+[WARNING] [makePDF] LaTeX Warning: Command \underbar has changed. Check if current package is valid.
+[WARNING] [makePDF] LaTeX Warning: Command \underline has changed. Check if current package is valid.
+```
+
+Этот вывод возникает при использовании следующих дополнительных включений *LaTeX* в конфигурационный файл *build-conf.toml*:
+
+```latex
+\usepackage{sectsty}
+\sectionfont{\clearpage}
+```
+
+Под капотом происходит переопределение команд $underbar$ и $underline$, на которое мы никак не можем повлиять. Поэтому стоит игнорировать этот вывод.
+
 ## Шаблоны
 
 В проекте приведены два шаблона, основанные на шаблоне [eisvogel](https://github.com/enhuiz/eisvogel?ysclid=m1wjhh6qka717625755).
