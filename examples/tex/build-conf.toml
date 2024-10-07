@@ -3,35 +3,170 @@ args = [
     "--pdf-engine=xelatex",                                     # Использовать XeLaTeX как PDF-движок
     "--template=templates/eisvogel-custom_mephi_titlepage.tex", # Шаблон для оформления документа
     "--listings",                                               # Включить поддержку вставки кода в документе
-    # "--lua-filter=filters/strikeout.lua",  # Фильтр для зачёркивания текста
-    # "--lua-filter=filters/underline.lua",  # Фильтр для подчёркивания текста
-    # "--lua-filter=filters/center-images.lua", # Фильтр для центрирования изображений (не нужен, если пишете на LaTeX и вставляете картинки через него)
-    # "--lua-filter=filters/word-count.lua",  # Фильтр для подсчёта слов в документе
-    "--lua-filter=filters/pagebreak.lua", # Фильтр, позволяющий работать с BREAK__ (он его заменяет на \newpage)
-    "--metadata-file=tmp/metadata.yaml",  # Файл с метаданными
-    "--bibliography=references.bib",      # Файл библиографии
-    "--citeproc",                         # Включить обработку цитирований
-    "--toc",                              # Включить оглавление
-    "--toc-depth=2",                      # Глубина оглавления
+    # "--lua-filter=filters/strikeout.lua",                     # Фильтр для зачёркивания текста
+    # "--lua-filter=filters/underline.lua",                     # Фильтр для подчёркивания текста
+    # "--lua-filter=filters/center-images.lua",                 # Фильтр для центрирования изображений (не нужен, если пишете на LaTeX и вставляете картинки через него)
+    # "--lua-filter=filters/word-count.lua",                    # Фильтр для подсчёта слов в документе
+    "--lua-filter=filters/pagebreak.lua",                       # Фильтр, позволяющий работать с BREAK__ (он его заменяет на \newpage)
+    "--metadata-file=tmp/metadata.yaml",                        # Файл с метаданными
+    "--citeproc",                                               # Включить обработку цитирований
+    "--toc",                                                    # Включить оглавление
+    "--toc-depth=2",                                            # Глубина оглавления
 ]
 src = ["main.tex"]
 out-name = "example_tex.pdf"
 
-[metadata]
+[metadata.general]
 title = "Название документа"
-subtitle = ""
+# subtitle = ""
+# abstract = ""
 author = ["автор"]
 date = "осень 2024"
 lang = "ru"
 
+# Настройка самого pandoc. Подробнее https://pandoc.org/MANUAL.html#variables-for-latex
+
+[metadata.layout]
+block-headings = true # изменяет поведение заголовков
+# classoption = "a4paper, 12pt, ..."                                         # опции класса документа
+# documentclass = "scrartcl"                                                 # параметр класса документа
+geometry = "left=2cm, right=2cm, top=2cm, bottom=2cm, footskip=5cm"          # поля страницы
+# hyperrefoptions = "linktoc=all, pdfwindowui, pdfpagemode=FullScreen, ..."  # опции гиперссылок
+indent = true                                                                # отступы в абзацах
+linestretch = 1.5                                                            # межстрочный интервал
+
+# margin-left = "2cm"     # отступ слева    #
+# margin-right = "2cm"    # отступ справа   #  устанавливает поля, если geometry не используется
+# margin-top = "2cm"      # отступ сверху   #  (в противном случае geometry переопределяет их).
+# margin-bottom = "2cm"   # отступ снизу    #
+
+# pagestyle = "plain"     # стиль страницы (plain, headings, empty для article). связано с колонтитулами
+papersize = "a4"          # размер бумаги (a4, letter, ...)
+# secnumdepth = 5         # глубина нумерации разделов
+# beamerarticle = true    # использовать стиль beamerarticle. есть примечание из документации
+# handout = true          # режим рукописи для презентаций. см. документацию
+
+[metadata.fonts]
+# fontenc = "T1"                   # кодировка шрифта
+# fontfamily = "libertinus"        # семейство шрифтов для использования с pdflatex
+# fontfamilyoptions = "osf, p, sc" # опции fontfamily
+fontsize = "12pt"                  # размер шрифта для body text
+
+# mainfont = true                   #
+# sansfont = true                   #
+# monofont = true                   #  семейства шрифтов для использования 
+# mathfont = true                   #  с xelatex или lualatex
+# CJKmainfont = true                #
+# CJKsansfont = true                #
+# CJKmonofont = true                #
+
+# mainfontoptions = "..."           #
+# sansfontoptions = "..."           #
+# monofontoptions = "..."           #  
+# mathfontoptions = "..."           # опции шрифтов
+# CJKoptions = "..."                #
+# luatexjapresetoptions = "..."     #
+
+# mainfontfallback = [              #
+#     "FreeSans:",                  #
+#     "NotoColorEmoji:mode=harf",   #   Шрифты, которые следует попробовать,
+# ]                                 #   если глиф не найден в mainfont, sansfont или monofont соответственно. 
+# sansfontfallback = []             #   Это списки.
+# monofontfallback = []             #   
+
+# microtypeoptions = "..."          # опции пакета microtype
+
+[metadata.fonts.babelfonts]             #
+# chinese-hant = "Noto Serif CJK TC"    # см. документацию
+# russian = "Noto Serif"                #
+
+[metadata.links]
+colorlinks = true        # добавить цвет к тексту ссылки; автоматически включается, если установлено любое из значений linkcolor, filecolor, citecolor, urlcolor или toccolor
+# boxlinks = true        # добавить рамку к ссылкам (нет эффекта если colorlinks = true) 
+linkcolor = "NavyBlue"   # цвет внутренних ссылок
+filecolor = "magenta"    # цвет ссылок на файлы
+citecolor = "violet"     # цвет ссылок на источники
+urlcolor = "cyan"        # цвет ссылок на URL
+toccolor = "black"       # цвет ссылок в оглавлении
+links-as-notes = false   # отображать ссылки как сноски
+urlstyle = "same"        # стиль ссылок на URL (same, tt, rm, sf)
+
+[metadata.frontmatter]
+# lof = true             # включить список рисунков
+# lot = true             # включить список таблиц
+# thanks = true          # включить благодарности
+toc = true               # включить оглавление
+toc-depth = 2            # глубина оглавления
+
+[metadata.bibliography]
+# biblatexoptions = []               # опции для пакета biblatex
+# biblio-style = "alphabetic"        # стиль библиографии
+# biblio-title = "Список литературы" # заголовок библиографии
+bibliography = "references.bib"      # путь к файлу библиографии
+# natbiboptions = []                 # опции для пакета natbib
+
+# Настройка шаблона eisvogel. Подробнее https://github.com/enhuiz/eisvogel
+
+[metadata.template.titlepage]
+titlepage = true                            # включить титульную страницу
+# titlepage-color = "FFFFFF"                # цвет фона титульной страницы
+titlepage-text-color = "000000"             # цвет текста на титульной странице
+# titlepage-rule-color = "000000"           # цвет линии на титульной странице
+titlepage-rule-height = -1                  # высота линии на титульной странице
+# titlepage-background = "titlepage.pdf"    # фон для титульной страницы
+titlepage-logo = "logo.jpeg"                # логотип для титульной страницы
+logo-width = "35mm"                         # ширина логотипа
+
+[metadata.template.page-background]
+# page-background = "page-background.pdf"   # фон для всех страниц
+# page-background-opacity = 0.5             # прозрачность фона
+
+[metadata.template.toc]
+toc-own-page = true                         # оглавление на отдельной странице
+
+[metadata.template.figure]
+# float-placement-figure = "H"              # местоположение рисунков
+
+[metadata.template.table]
+# table-use-row-colors = true               # использовать цвета строк в таблицах
+
+[metadata.template.listings]
+listings-no-page-break = true               # запрет разрыва страниц в блоках кода
+listings-disable-line-numbers = true        # отключение нумерации строк в блоках кода
+# code-block-font-size = "footnotesize"     # размер шрифта в блоках кода
+
+[metadata.template.caption]
+caption-justification = "centering"         # Выравнивание подписей к рисункам или таблицам по центру
+
+[metadata.template.footnotes]
+footnotes-pretty = true                     # Настройка сносок
+# footnotes-disable-backlinks = true        # Отключение обратных ссылок в сносках
+
+[metadata.template.headerandfooter]
+# disable-header-and-footer = true          # Отключение колонтитулов
+
+[metadata.template.header]
+header-left = '\thepage'    # левый верхний колонтитул: номер страницы
+header-center = ''          # центральный верхний колонтитул: пустой
+header-right = '\rightmark' # правый верхний колонтитул: текущий раздел
+
+[metadata.template.footer]
+footer-left = ''            # левый нижний колонтитул: пустой
+footer-center = ''          # центральный нижний колонтитул: пустой
+footer-right = ''           # правый нижний колонтитул: пустой
+
+[metadata.template.book]
+book = true                 # использовать шаблон книги
+# first-chapter = 28        # номер первой главы
+
+
 [metadata.latex]
-biblio-style = "ugost2008" # Стиль оформления списка источников
 header-includes = '''
 header-includes: |
     \usepackage{caption}
     \usepackage{sectsty}
     \sectionfont{\clearpage}
-''' # Дополнительные включения в заголовок LaTeX
+'''                         # Дополнительные включения в заголовок LaTeX
 
 # Протестированные включения
 # \usepackage[utf8]{inputenc} #может помочь, если проблема с распознаванием русского языка (вы сменили движок или шаблон)
@@ -50,30 +185,3 @@ header-includes: |
 #     indent=0pt]{subparagraph}  # Настройка отступов подпараграфов
 # \exhyphenpenalty=10000 #запрет переноса строк для верстальщика. Отключение этих двух строк помогает, если в блоках кода слишком длинные строки не переносятся.
 # \hyphenpenalty=10000 #
-
-[metadata.title-page]
-title-page = true # Включить титульную страницу
-# background = "titlepage.pdf"  # Фон для титульной страницы
-# logo = "logo.jpeg"  # Логотип для титульной страницы
-# logo-width = "35mm"  # Ширина логотипа
-rule-height = -1 # Высота линии на титульной странице
-
-[metadata.format]
-geometry = "left=2cm, right=2cm, top=2cm, bottom=2cm, footskip=5cm" # Поля страницы
-papersize = "a4"                                                    # Размер бумаги
-linkcolor = "NavyBlue"                                              # Цвет ссылок
-toc-own-page = true                                                 # Оглавление на отдельной странице
-listings-no-page-break = true                                       # Запрет разрыва страниц в блоках кода
-caption-justification = "centering"                                 # Выравнивание подписей к рисункам или таблицам по центру
-footnotes-pretty = false                                            # Настройка сносок
-book = true                                                         # Книжный формат
-disable-header-and-footer = false                                   # Включить заголовки и колонтитулы
-block-headings = true                                               # Заголовки блоков
-
-[metadata.format.header]
-right = '\rightmark' # Правый заголовок: текущий раздел
-left = '\thepage'    # Левый заголовок: номер страницы
-
-[metadata.format.footer]
-left = '\\\ '  # Левый колонтитул: пустой
-right = '\\\ ' # Правый колонтитул: пустой
