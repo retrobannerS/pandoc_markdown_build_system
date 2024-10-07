@@ -24,7 +24,7 @@ files = [os.path.join("src", file) for file in conf["pandoc"]["src"]]
 
 # Convert all markdown files in the src directory to a single PDF
 os.system(
-    f"pandoc {' '.join(files)} -o out/{conf['pandoc']['out-name']} -t pdf {' '.join(conf['pandoc']['args'])}"
+    f"pandoc {' '.join(files)} -o out/{conf['pandoc']['out-name']} {' '.join(conf['pandoc']['args'])}"
 )
 
 
