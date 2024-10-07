@@ -180,6 +180,7 @@ latex-fonts
 latex-lab
 latexbug
 latexconfig
+latexmk
 latexmp
 letltxmacro
 lineno
