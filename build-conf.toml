@@ -163,25 +163,24 @@ book = true                 # использовать шаблон книги
 [metadata.latex]
 header-includes = '''
 header-includes: |
-    \usepackage{caption}
     \usepackage{sectsty}
     \sectionfont{\clearpage}
-'''                         # Дополнительные включения в заголовок LaTeX
+'''                         # дополнительные включения в заголовок LaTeX
 
 # Протестированные включения
-# \usepackage[utf8]{inputenc} #может помочь, если проблема с распознаванием русского языка (вы сменили движок или шаблон)
-# \usepackage[normalem]{ulem} #может понадобиться для caption, но в этом шаблоне эта строка уже включена
-# \usepackage{caption} #пакет для подписей к рисункам
-# \captionsetup[figure]{labelformat=empty}  # Настройка подписей к рисункам(выключить "рис. N:")
-# \captionsetup[table]{labelformat=empty}  # Настройка подписей к таблицам(выключить "табл. N:")
-# \usepackage{sectsty}  # Пакет для настройки стилей секций
-# \sectionfont{\clearpage}  # Каждая секция с новой страницы
-# \RedeclareSectionCommand[
-#   beforeskip=-10pt plus -2pt minus -1pt,
-#     afterskip=1sp plus -1sp minus 1sp]{paragraph}  # Настройка отступов параграфов
-# \RedeclareSectionCommand[
-#     beforeskip=-10pt plus -2pt minus -1pt,
-#     afterskip=1sp plus -1sp minus 1sp,
-#     indent=0pt]{subparagraph}  # Настройка отступов подпараграфов
-# \exhyphenpenalty=10000 #запрет переноса строк для верстальщика. Отключение этих двух строк помогает, если в блоках кода слишком длинные строки не переносятся.
-# \hyphenpenalty=10000 #
+# \usepackage[utf8]{inputenc}                        # может помочь, если проблема с распознаванием русского языка (вы сменили движок или шаблон)
+# \usepackage[normalem]{ulem}                        # может понадобиться для caption, но в этом шаблоне эта строка уже включена
+# \usepackage{caption}                               # пакет для подписей к рисункам, использовать вместе с \captionsetup
+# \captionsetup[figure]{labelformat=empty}           # настройка подписей к рисункам(выключить "рис. N:")
+# \captionsetup[table]{labelformat=empty}            # настройка подписей к таблицам(выключить "табл. N:")
+# \usepackage{sectsty}                               # пакет для настройки стилей секций
+# \sectionfont{\clearpage}                           # каждая секция с новой страницы
+# \RedeclareSectionCommand[                          #
+#   beforeskip=-10pt plus -2pt minus -1pt,           #
+#     afterskip=1sp plus -1sp minus 1sp]{paragraph}  # настройка отступов разделов
+# \RedeclareSectionCommand[                          #
+#     beforeskip=-10pt plus -2pt minus -1pt,         #
+#     afterskip=1sp plus -1sp minus 1sp,             #
+#     indent=0pt]{subparagraph}                      # настройка отступов подразделов
+# \exhyphenpenalty=10000                             # запрет переноса строк для верстальщика. Отключение этих двух строк помогает, 
+# \hyphenpenalty=10000                               # если в блоках кода слишком длинные строки не переносятся.
