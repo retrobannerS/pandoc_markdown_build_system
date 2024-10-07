@@ -27,7 +27,7 @@ sudo xargs tlmgr install < tex_requirements.txt
 
 Вся настройка данного способа писать документы находится в конфигурационном файле *build-conf.toml*.
 Для начала будет достаточно поменять название документа и автора в полях *title* и *author*.
-Обо всех флагах в настройке можно почитать в [документации pandoc](https://pandoc.org/MANUAL.html).
+Обо всех флагах в настройке можно почитать в [документации pandoc](https://pandoc.org/MANUAL.html) и [документации eisvogel](https://github.com/enhuiz/eisvogel).
 
 Настройка титульной страницы производится внутри шаблона. Для *eisvogel-custom_mephi_titlepage.tex* это 939-1024 строки. Автор, дата и название документа вставляются автоматически из *metadata*.
 
@@ -87,7 +87,7 @@ try `pdflatex src/ ... .tex` instead of `pandoc src/ ... .tex -o ... .pdf`.
 
 ## Шаблоны
 
-В проекте приведены два шаблона, основанные на шаблоне [eisvogel](https://github.com/enhuiz/eisvogel?ysclid=m1wjhh6qka717625755).
+В проекте приведены два шаблона, основанные на шаблоне [eisvogel](https://github.com/enhuiz/eisvogel).
 
 *eisvogel-custom.tex:*
 
@@ -107,7 +107,7 @@ try `pdflatex src/ ... .tex` instead of `pandoc src/ ... .tex -o ... .pdf`.
 
 <u>[Документация.](https://pandoc.org/filters.html)</u>
 
-*Pandoc* умеет работать с разными фильтрами, но сам рекомендует использовать *Lua-Filters*, так как в этом случае получается нативная работа. 
+*Pandoc* умеет работать с разными фильтрами, но сам рекомендует использовать *Lua-Filters*, так как в этом случае получается нативная работа.
 
 Пайплайн работы *Pandoc*: file $\longrightarrow$ AST(абстрактное синтаксическое дерево) $\longrightarrow$ обработка фильтром $\longrightarrow$ преобразование в tex $\longrightarrow$ применение шаблона $\longrightarrow$ преобразование в целевой формат. То есть фильтр проходится по дереву и в соответствии с запрограммированными правилами изменяет в нем элементы.
 
