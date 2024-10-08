@@ -1,3 +1,7 @@
+[project]
+latex = true
+preambles = ["graphics.tex"]
+
 [pandoc]
 args = [
     "--pdf-engine=xelatex",                                     # Использовать XeLaTeX как PDF-движок
@@ -7,7 +11,6 @@ args = [
     # "--lua-filter=filters/underline.lua",                     # Фильтр для подчёркивания текста
     # "--lua-filter=filters/center-images.lua",                 # Фильтр для центрирования изображений (не нужен, если пишете на LaTeX и вставляете картинки через него)
     # "--lua-filter=filters/word-count.lua",                    # Фильтр для подсчёта слов в документе
-    "--lua-filter=filters/pagebreak.lua",                       # Фильтр, позволяющий работать с BREAK__ (он его заменяет на \newpage)
     "--metadata-file=tmp/metadata.yaml",                        # Файл с метаданными
     "--citeproc",                                               # Включить обработку цитирований
     "--toc",                                                    # Включить оглавление
@@ -27,9 +30,9 @@ lang = "ru"
 # Настройка самого pandoc. Подробнее https://pandoc.org/MANUAL.html#variables-for-latex
 
 [metadata.layout]
-block-headings = true # изменяет поведение заголовков
+# block-headings = true                                                      # изменяет поведение заголовков, см. документацию т.к. есть подводные камни
 # classoption = "a4paper, 12pt, ..."                                         # опции класса документа
-# documentclass = "scrartcl"                                                 # параметр класса документа
+documentclass = "scrreprt"                                                   # параметр класса документа(scrartct, scrbook или scrreprt), если book, то включить параметр book 
 geometry = "left=2cm, right=2cm, top=2cm, bottom=2cm, footskip=5cm"          # поля страницы
 # hyperrefoptions = "linktoc=all, pdfwindowui, pdfpagemode=FullScreen, ..."  # опции гиперссылок
 indent = true                                                                # отступы в абзацах
@@ -156,31 +159,34 @@ footer-center = ''          # центральный нижний колонти
 footer-right = ''           # правый нижний колонтитул: пустой
 
 [metadata.template.book]
-book = true                 # использовать шаблон книги
+# book = true               # использовать шаблон книги
 # first-chapter = 28        # номер первой главы
 
 
 [metadata.latex]
 header-includes = '''
 header-includes: |
-    \usepackage{sectsty}
-    \sectionfont{\clearpage}
-'''                         # дополнительные включения в заголовок LaTeX
+    \usepackage{graphics}
+    \usepackage{float}
+'''                         # Дополнительные включения в заголовок LaTeX
 
 # Протестированные включения
-# \usepackage[utf8]{inputenc}                        # может помочь, если проблема с распознаванием русского языка (вы сменили движок или шаблон)
-# \usepackage[normalem]{ulem}                        # может понадобиться для caption, но в этом шаблоне эта строка уже включена
-# \usepackage{caption}                               # пакет для подписей к рисункам, использовать вместе с \captionsetup
-# \captionsetup[figure]{labelformat=empty}           # настройка подписей к рисункам(выключить "рис. N:")
-# \captionsetup[table]{labelformat=empty}            # настройка подписей к таблицам(выключить "табл. N:")
-# \usepackage{sectsty}                               # пакет для настройки стилей секций
-# \sectionfont{\clearpage}                           # каждая секция с новой страницы
-# \RedeclareSectionCommand[                          #
-#   beforeskip=-10pt plus -2pt minus -1pt,           #
-#     afterskip=1sp plus -1sp minus 1sp]{paragraph}  # настройка отступов разделов
-# \RedeclareSectionCommand[                          #
-#     beforeskip=-10pt plus -2pt minus -1pt,         #
-#     afterskip=1sp plus -1sp minus 1sp,             #
-#     indent=0pt]{subparagraph}                      # настройка отступов подразделов
-# \exhyphenpenalty=10000                             # запрет переноса строк для верстальщика. Отключение этих двух строк помогает, 
-# \hyphenpenalty=10000                               # если в блоках кода слишком длинные строки не переносятся.
+# \usepackage[utf8]{inputenc} #может помочь, если проблема с распознаванием русского языка (вы сменили движок или шаблон)
+# \usepackage[normalem]{ulem} #может понадобиться для caption, но в этом шаблоне эта строка уже включена
+# \usepackage{caption} #пакет для подписей к рисункам
+# \captionsetup[figure]{labelformat=empty}  # Настройка подписей к рисункам(выключить "рис. N:")
+# \captionsetup[table]{labelformat=empty}  # Настройка подписей к таблицам(выключить "табл. N:")
+# \RedeclareSectionCommand[
+#   beforeskip=-10pt plus -2pt minus -1pt,
+#     afterskip=1sp plus -1sp minus 1sp]{paragraph}  # Настройка отступов параграфов
+# \RedeclareSectionCommand[
+#     beforeskip=-10pt plus -2pt minus -1pt,
+#     afterskip=1sp plus -1sp minus 1sp,
+#     indent=0pt]{subparagraph}  # Настройка отступов подпараграфов
+# \exhyphenpenalty=10000 #запрет переноса строк для верстальщика. Отключение этих двух строк помогает, если в блоках кода слишком длинные строки не переносятся.
+# \hyphenpenalty=10000 #
+
+[image-optimization]
+enabled  = false
+quality  = 95
+max-size = 1500
