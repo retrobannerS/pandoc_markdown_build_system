@@ -40,11 +40,13 @@ pip install -r src/requirements.txt
 #### Unix
 
 Пример установки через пакетный менеджер для *Debian*/*Ubuntu*:
+
 ```bash
 sudo apt install texlive-base
 ```
 
 Для Arch Linux:
+
 ```bash
 sudo pacman -S texlive-core
 ```
@@ -52,6 +54,7 @@ sudo pacman -S texlive-core
 #### Mac OS
 
 Через пакетный менеджер [Homebrew](https://brew.sh):
+
 ```bash
 brew install --cask basictex
 ```
@@ -67,7 +70,7 @@ brew install --cask basictex
 
 Убедитесь, что *tlmgr* доступен в переменных окружения *PATH*, чтобы его можно было запустить из командной строки или *PowerShell*.
 
-Все требуемые библиотеки для *TeXLive* записаны в [tex-requirements.txt](/tex_requirements.txt). 
+Все требуемые библиотеки для *TeXLive* записаны в [tex-requirements.txt](/tex_requirements.txt).
 
 Для установки на *Unix*/*MacOS* необходимо выполнить следующую команду:
 
@@ -76,6 +79,7 @@ sudo xargs tlmgr install < path_to_project/tex_requirements.txt
 ```
 
 Для *Windows* необходимо выполнить в *PowerShell*:
+
 ```powershell
 Get-Content path_to_project/tex_requirements.txt | ForEach-Object { tlmgr install $_ }
 ```
@@ -88,12 +92,12 @@ Get-Content path_to_project/tex_requirements.txt | ForEach-Object { tlmgr instal
 Для начала будет достаточно поменять название документа и автора в полях *title* и *author*.
 Обо всех флагах в настройказ можно почитать в [документации pandoc](https://pandoc.org/MANUAL.html) и [документации eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template/tree/master?tab=readme-ov-file#custom-template-variables).
 
-Настройка титульной страницы производится [внутри шаблона](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/ded753f9a8533638d43d701d4dcefb816eeff9af/templates/eisvogel-custom.tex#L934C1-L1014C1).
+Настройка титульной страницы производится [внутри шаблона](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L986C1-L1065C3).
 Автор, дата и название документа могут вставляться автоматически из [metadata](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/ded753f9a8533638d43d701d4dcefb816eeff9af/build-conf.toml#L21C1-L27C12).
 
 ## Использование
 
-1. В папке **/src** располагаются файлы в формате *markdown*. 
+1. В папке **/src** располагаются файлы в формате *markdown*.
 2. *Python* скрипт [build.py](/scripts/build.py) формирует временный файл **metadata.yaml** из настроек в конфигурационном файле [build-conf.toml](/build-conf.toml).
 3. Выполняется **bash** команда, создающая выходной файл.
 
@@ -102,7 +106,7 @@ Get-Content path_to_project/tex_requirements.txt | ForEach-Object { tlmgr instal
 Для конвертирования исходников в один PDF файл достаточно в конфигурационном файле [build-conf.toml](/build-conf.toml) сделать следующие изменения:
 
 - Написать список [исходных файлов](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/b6f20ad9705f2a0121f4a6074b35cc94c12a4a3e/build-conf.toml#L18), которые будут входить в PDF.
-- Написать имя [выходящего файла](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/b6f20ad9705f2a0121f4a6074b35cc94c12a4a3e/build-conf.toml#L18). Формат выходящего файла важен.
+- Написать имя [итогового файла](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/b6f20ad9705f2a0121f4a6074b35cc94c12a4a3e/build-conf.toml#L18). Формат выходящего файла важен.
 
 Запуск *Python* скрипта создает выходной PDF:
 
@@ -125,14 +129,16 @@ python3 ./scripts/build.py
 В проекте приведены два шаблона, основанные на шаблоне [eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template/tree/master?tab=readme-ov-file#custom-template-variables).
 
 [*eisvogel-custom.tex:*](/templates/eisvogel-custom.tex)
-- [Можно использовать любой ```documentclass``` из списка ```scrartcl, scrbook, scrreprt```.](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/b6f20ad9705f2a0121f4a6074b35cc94c12a4a3e/templates/eisvogel-custom.tex#L73C1-L73C99)
-- Адаптирован для русского языка.
-- Добавлена переменная цвета подписей к картинкам/таблицам.
-- Добавлена переменная использования **metadata** на титульной странице.
+
+- [Можно использовать любой ```documentclass``` из списка ```scrartcl, scrbook, scrreprt```.](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L76)
+- Адаптирован для русского языка. [Здесь](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L836C3-L837C27) и [здесь](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L873C3-L884C32).
+- [Добавлена переменная цвета подписей к картинкам/таблицам.](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L683C1-L683C89)
+- [Добавлена переменная использования **metadata** на титульной странице.](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L1017C9-L1017C31)
 
 [*eisvogel-custom_mephi_titlepage.tex*](/templates/eisvogel-custom_mephi_titlepage.tex)
 отличается от [*eisvogel-custom.tex:*](/templates/eisvogel-custom.tex)
-- Добавлена титульная страница - пародия на ГОСТ:
+
+- Добавлена [титульная страница](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom_mephi_titlepage.tex#L1031C5-L1069C8) - пародия на ГОСТ:
 
 | Без логотипа                                  | С логотипом                                  |
 | --------------------------------------------- | -------------------------------------------- |
