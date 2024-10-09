@@ -1,48 +1,108 @@
-# Универсальный шаблон для написания документов и конспектов
+# Универсальный шаблон для написания документов и конспектов <!-- omit in toc -->
 
-## Требования
+## Table of Content <!-- omit in toc -->
 
-Установленные *Python*, *Pandoc* и *xeLaTex*(один из теховских движков).
+- [Установка](#установка)
+  - [Python](#python)
+  - [Pandoc](#pandoc)
+  - [TeXLive](#texlive)
+    - [Unix](#unix)
+    - [Mac OS](#mac-os)
+    - [Windows](#windows)
+    - [Необходимые библиотеки](#необходимые-библиотеки)
+- [Настройка](#настройка)
+- [Использование](#использование)
+- [Пример](#пример)
+- [Шаблоны](#шаблоны)
+- [Фильтры Pandoc](#фильтры-pandoc)
+- [image optimizer](#image-optimizer)
 
-## Необходимые библиотеки
+## Установка
 
-Все требуемые библиотеки для *Python* записаны в *requirements.txt*. Для установки нужно написать в терминал(находясь в папке с проектом):
+### Python
+
+Установите [Python](https://www.python.org) для вашей операционной системы.
+
+Все требуемые библиотеки для *Python* записаны в [requirements.txt](scripts/requirements.txt). Для установки нужно выполнить в терминале(находясь в папке с проектом) следующую команду:
 
 ```bash
 pip install -r src/requirements.txt
 ```
 
-Все требуемые библиотеки для *LaTeX* записаны в *requirements.txt*. Для установки нужно написать в терминал(находясь в папке с проектом):
+### Pandoc
 
+Установите [Pandoc](https://pandoc.org/getting-started.html) в соответствии с вашей операционной системой.
+
+### TeXLive
+
+Установите минимальную версию *TeXLive*, занимающую минимальное количество места на жестком диске:
+
+#### Unix
+
+Пример установки через пакетный менеджер для *Debian*/*Ubuntu*:
 ```bash
-sudo xargs tlmgr install < tex_requirements.txt
+sudo apt install texlive-base
 ```
 
-## Поддерживаемые языки верстки
+Для Arch Linux:
+```bash
+sudo pacman -S texlive-core
+```
 
-- LaTeX.
-- MarkDown.
+#### Mac OS
+
+Через пакетный менеджер [Homebrew](https://brew.sh):
+```bash
+brew install --cask basictex
+```
+
+Или скачать и установить [BasicTeX.pkg](https://tug.org/mactex/morepackages.html).
+
+#### Windows
+
+Скачайте и зайдите в установщик [install-tl-windows.exe](https://tug.org/texlive/windows.html).
+В установщике перейдите в Дополнительно(Advanced), выберите схему, занимающую минимальное место: схема только с инфраструктурой.
+
+#### Необходимые библиотеки
+
+Убедитесь, что *tlmgr* доступен в переменных окружения *PATH*, чтобы его можно было запустить из командной строки или *PowerShell*.
+
+Все требуемые библиотеки для *TeXLive* записаны в [tex-requirements.txt](/tex_requirements.txt). 
+
+Для установки на *Unix*/*MacOS* необходимо выполнить следующую команду:
+
+```bash
+sudo xargs tlmgr install < path_to_project/tex_requirements.txt
+```
+
+Для *Windows* необходимо выполнить в *PowerShell*:
+```powershell
+Get-Content path_to_project/tex_requirements.txt | ForEach-Object { tlmgr install $_ }
+```
+
+не забудьте вместо ```path_to_project``` вставить путь до проекта.
 
 ## Настройка
 
-Вся настройка данного способа писать документы находится в конфигурационном файле *build-conf.toml*.
+Все настройки системы сборки находятся в конфигурационном файле [build-conf.toml](/build-conf.toml).
 Для начала будет достаточно поменять название документа и автора в полях *title* и *author*.
-Обо всех флагах в настройке можно почитать в [документации pandoc](https://pandoc.org/MANUAL.html) и [документации eisvogel](https://github.com/enhuiz/eisvogel).
+Обо всех флагах в настройказ можно почитать в [документации pandoc](https://pandoc.org/MANUAL.html) и [документации eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template/tree/master?tab=readme-ov-file#custom-template-variables).
 
-Настройка титульной страницы производится внутри шаблона. Для *eisvogel-custom_mephi_titlepage.tex* это 939-1024 строки. Автор, дата и название документа вставляются автоматически из *metadata*.
+Настройка титульной страницы производится [внутри шаблона](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/ded753f9a8533638d43d701d4dcefb816eeff9af/templates/eisvogel-custom.tex#L934C1-L1014C1).
+Автор, дата и название документа могут вставляться автоматически из [metadata](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/ded753f9a8533638d43d701d4dcefb816eeff9af/build-conf.toml#L21C1-L27C12).
 
 ## Использование
 
-В папке *src/* пишутся файлы в поддерживаемых форматах. Далее *Python* скрипт *build.py* вытягивает настройки из конфигурационного файла *build-conf.toml*, объединяет их во временный файл *metadata.yaml* и выполняет *bash* команду, создающую выходной файл.
+1. В папке **/src** располагаются файлы в формате *markdown*. 
+2. *Python* скрипт [build.py](/scripts/build.py) формирует временный файл **metadata.yaml** из настроек в конфигурационном файле [build-conf.toml](/build-conf.toml).
+3. Выполняется **bash** команда, создающая выходной файл.
 
-Для соединения в единый PDF файл используется утилита [pandoc](https://pandoc.org/index.html). Он под капотом переводит, если необходимо, *markdown* файлы в единый *.tex* файл, добавляет к ним шаблон и настройки и формирует единый PDF.
+Для соединения в единый PDF файл используется утилита [pandoc](https://pandoc.org/index.html),которая переводит *markdown* файлы в единый *.tex* файл, добавляет к нему шаблон и настройки и формирует единый PDF.
 
-Для конвертирования исходников в один PDF файл достаточно в конфигурационном файле *build-conf.toml* сделать следующие изменения:
+Для конвертирования исходников в один PDF файл достаточно в конфигурационном файле [build-conf.toml](/build-conf.toml) сделать следующие изменения:
 
-- Написать список исходных файлов, которые будут входить в PDF, в поле *src*.
-- Написать имя выходящего файла в поле *out-name*. Формат выходящего файла важен.
-
-**ВАЖНО!** Если исходники разного формата, то нужно следить за строками *\begin{document}* и *\end{document}*. Они должны быть расположены в файлах таким образом, чтобы один файл был естественным продолжением предыдущего.
+- Написать список [исходных файлов](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/b6f20ad9705f2a0121f4a6074b35cc94c12a4a3e/build-conf.toml#L18), которые будут входить в PDF.
+- Написать имя [выходящего файла](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/b6f20ad9705f2a0121f4a6074b35cc94c12a4a3e/build-conf.toml#L18). Формат выходящего файла важен.
 
 Запуск *Python* скрипта создает выходной PDF:
 
@@ -50,60 +110,35 @@ sudo xargs tlmgr install < tex_requirements.txt
 python3 ./scripts/build.py
 ```
 
-Папка *examples* независима и может быть удалена для личного использования этого шаблона. То же самое касается *README.md*, *title-page-01.jpg* и *title-page-02.jpg*
+Папка **example** и файлы [README.md](/README.md), [title-page-01.jpg](/title-page-01.jpg) и [title-page-02.jpg](/title-page-02.jpg) независимы и могут быть удалены для личного использования этого проекта.
 
-## Примеры
+## Пример
 
-В корневой папке вы можете встретить *examples* - примеры сборки файлов в один PDF на основе *LaTeX* и *MarkDown*.
+В корневой папке вы можете встретить **example** - пример сборки файлов в один PDF.
 
-## Возможные выводы в терминал
-
-**1.**
-
-```bash
-[WARNING] Unusual conversion: to convert a .tex file to PDF, you get better results by using pdflatex (or lualatex or xelatex) directly, 
-try `pdflatex src/ ... .tex` instead of `pandoc src/ ... .tex -o ... .pdf`.
-```
-
-В данном случае *Pandoc* советует использовать движок *LaTeX* напрямую, мол зачем ты используешь *Pandoc*, если ты все равно пишешь на чистом *LaTeX*, можешь использовать другую программу, которая специально для этого предназначалась, она еще и эффективнее будет.
-
-Я не обращаю внимание на этот вывод, потому что работать с *Pandoc* более удобно, чем с движком напрямую, хоть и идет потеря по времени компиляции.
-
-**2.**
-
-```bash
-[WARNING] [makePDF] LaTeX Warning: Command \underbar has changed. Check if current package is valid.
-[WARNING] [makePDF] LaTeX Warning: Command \underline has changed. Check if current package is valid.
-```
-
-Этот вывод возникает при использовании следующих дополнительных включений *LaTeX* в конфигурационный файл *build-conf.toml*:
-
-```latex
-\usepackage{sectsty}
-\sectionfont{\clearpage}
-```
-
-Под капотом происходит переопределение команд $underbar$ и $underline$, на которое мы никак не можем повлиять. Поэтому стоит игнорировать этот вывод.
+| ![](/example1.jpg) | ![](/example2.jpg) |
+| ------------------ | ------------------ |
+| ![](/example3.jpg) | ![](/example4.jpg) |
 
 ## Шаблоны
 
-В проекте приведены два шаблона, основанные на шаблоне [eisvogel](https://github.com/enhuiz/eisvogel).
+В проекте приведены два шаблона, основанные на шаблоне [eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template/tree/master?tab=readme-ov-file#custom-template-variables).
 
-*eisvogel-custom.tex:*
+[*eisvogel-custom.tex:*](/templates/eisvogel-custom.tex)
+- [Можно использовать любой ```documentclass``` из списка ```scrartcl, scrbook, scrreprt```.](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/b6f20ad9705f2a0121f4a6074b35cc94c12a4a3e/templates/eisvogel-custom.tex#L73C1-L73C99)
+- Адаптирован для русского языка.
+- Добавлена переменная цвета подписей к картинкам/таблицам.
+- Добавлена переменная использования **metadata** на титульной странице.
 
-- Адаптированная версия оригинала для русского языка.
-- Мелкие обновления, связанные с цветами подписей к картинкам/блокам кода.
-- Правка, связанная с *[обновлением pandoc](https://pandoc.org/releases.html#pandoc-3.2.1-2024-06-24)*. Там изменилась вставка картинок, а шаблон не обновлялся с 2020.
-
-*eisvogel-custom_mephi_titlepage.tex:*
-
+[*eisvogel-custom_mephi_titlepage.tex*](/templates/eisvogel-custom_mephi_titlepage.tex)
+отличается от [*eisvogel-custom.tex:*](/templates/eisvogel-custom.tex)
 - Добавлена титульная страница - пародия на ГОСТ:
 
-| без логотипа                                  | с логотипом                                  |
+| Без логотипа                                  | С логотипом                                  |
 | --------------------------------------------- | -------------------------------------------- |
 | ![титульник без логотипа](/title-page-01.jpg) | ![титульник с логотипом](/title-page-02.jpg) |
 
-# Фильтры Pandoc
+## Фильтры Pandoc
 
 <u>[Документация.](https://pandoc.org/filters.html)</u>
 
@@ -111,12 +146,6 @@ try `pdflatex src/ ... .tex` instead of `pandoc src/ ... .tex -o ... .pdf`.
 
 Пайплайн работы *Pandoc*: file $\longrightarrow$ AST(абстрактное синтаксическое дерево) $\longrightarrow$ обработка фильтром $\longrightarrow$ преобразование в tex $\longrightarrow$ применение шаблона $\longrightarrow$ преобразование в целевой формат. То есть фильтр проходится по дереву и в соответствии с запрограммированными правилами изменяет в нем элементы.
 
-В шаблон уже встроены некоторые фильтры, которые можно включать и выключать в *конфигурационном файле*. Особое внимание хотелось бы уделить фильтру *pagebreak.lua*.
+В шаблон уже встроены некоторые фильтры, которые можно включать и выключать в конфигурационном файле [build-conf.toml](/build-conf.toml).
 
-Что он делает: он заменяет все строки "BREAK__" на "\newpage".
-Зачем это нужно? Дело в том, что при парсинге в AST *Pandoc* технически не умеет выделять элементы переноса страницы. Особенно это касается конвертации из формата *.tex*. Он просто игнорирует *\newpage* в исходном файле.
-
-| Исходный формат | Работающие команды для переноса страницы |
-| :-------------: | :--------------------------------------: |
-|    markdown     |          *\newpage*, *BREAK__*           |
-|      latex      |                *BREAK__*                 |
+## image optimizer
