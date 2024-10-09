@@ -1,7 +1,3 @@
-[project]
-latex = true
-preambles = ["graphics.tex"]
-
 [pandoc]
 args = [
     "--pdf-engine=xelatex",                                     # использовать XeLaTeX как PDF-движок
@@ -103,7 +99,7 @@ toc-depth = 2            # глубина оглавления
 # biblatexoptions = []               # опции для пакета biblatex
 # biblio-style = "alphabetic"        # стиль библиографии
 # biblio-title = "Список литературы" # заголовок библиографии
-bibliography = "references.bib"      # путь к файлу библиографии
+# bibliography = "references.bib"    # путь к файлу библиографии
 # natbiboptions = []                 # опции для пакета natbib
 
 # Настройка шаблона eisvogel. Подробнее https://github.com/enhuiz/eisvogel
