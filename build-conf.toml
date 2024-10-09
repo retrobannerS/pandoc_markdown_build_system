@@ -1,3 +1,8 @@
+[image-optimization]
+enabled  = false
+quality  = 95
+max-size = 1500
+
 [pandoc]
 args = [
     "--pdf-engine=xelatex",                                     # использовать XeLaTeX как PDF-движок
@@ -8,9 +13,9 @@ args = [
     "--lua-filter=filters/center-images.lua",                   # фильтр для центрирования изображений (не нужен, если пишете на LaTeX и вставляете картинки через него)
     "--lua-filter=filters/word-count.lua",                      # фильтр для подсчёта слов в документе
     "--metadata-file=tmp/metadata.yaml",                        # файл с метаданными
-    "--citeproc",                                               # включить обработку цитирований
+    # "--citeproc",                                             # включить обработку цитирований, нужно указать bibliography
 ]
-src = ["some file"]
+src = ["some document"]
 out-name = "output.pdf"
 
 [metadata.general]
@@ -102,7 +107,7 @@ toc-depth = 2            # глубина оглавления
 # bibliography = "references.bib"    # путь к файлу библиографии
 # natbiboptions = []                 # опции для пакета natbib
 
-# Настройка шаблона eisvogel. Подробнее https://github.com/enhuiz/eisvogel
+# Настройка шаблона eisvogel. Подробнее https://github.com/Wandmalfarbe/pandoc-latex-template
 
 [metadata.template.titlepage]
 titlepage = true                            # включить титульную страницу
@@ -160,11 +165,11 @@ book = true                 # если book или report (scrbook или scrrep
 
 
 [metadata.latex]
-header-includes = '''
-header-includes: |
-    \usepackage{graphics}
-    \usepackage{float}
-'''                         # Дополнительные включения в заголовок LaTeX
+# header-includes = '''
+# header-includes: |
+#     \usepackage[utf8]{inputenc}
+#     \usepackage[normalem]{ulem}
+# '''                         # Дополнительные включения в заголовок LaTeX
 
 # Протестированные включения
 # \usepackage[utf8]{inputenc}                        # может помочь, если проблема с распознаванием русского языка (вы сменили движок или шаблон)
@@ -182,7 +187,3 @@ header-includes: |
 # \exhyphenpenalty=10000                             # запрет переноса строк для верстальщика. Отключение этих двух строк помогает, 
 # \hyphenpenalty=10000                               # если в блоках кода слишком длинные строки не переносятся.
 
-[image-optimization]
-enabled  = false
-quality  = 95
-max-size = 1500

@@ -2,7 +2,6 @@ import os
 import yaml
 
 def write_yaml(conf, path_yaml):
-    
     with open(path_yaml, "w") as file:
         file.write(
             yaml.dump(
@@ -90,6 +89,7 @@ def write_yaml(conf, path_yaml):
 
                     # titlepage
                     "titlepage": conf["metadata"]["template"]["titlepage"]["titlepage"] if "titlepage" in conf["metadata"]["template"]["titlepage"] else None,
+                    "titlepage-text": conf["metadata"]["template"]["titlepage"]["titlepage-text"] if "titlepage-text" in conf["metadata"]["template"]["titlepage"] else None,
                     "titlepage-color": conf["metadata"]["template"]["titlepage"]["titlepage-color"] if "titlepage-color" in conf["metadata"]["template"]["titlepage"] else None,
                     "titlepage-text-color": conf["metadata"]["template"]["titlepage"]["titlepage-text-color"] if "titlepage-text-color" in conf["metadata"]["template"]["titlepage"] else None,
                     "titlepage-rule-color": conf["metadata"]["template"]["titlepage"]["titlepage-rule-color"] if "titlepage-rule-color" in conf["metadata"]["template"]["titlepage"] else None,
@@ -134,6 +134,7 @@ def write_yaml(conf, path_yaml):
 
                     # caption
                     "caption-justification": conf["metadata"]["template"]["caption"]["caption-justification"] if "caption-justification" in conf["metadata"]["template"]["caption"] else None,
+                    "caption-color": conf["metadata"]["template"]["caption"]["caption-color"] if "caption-color" in conf["metadata"]["template"]["caption"] else None,
 
                     # footnotes
                     "footnotes-pretty": conf["metadata"]["template"]["footnotes"]["footnotes-pretty"] if "footnotes-pretty" in conf["metadata"]["template"]["footnotes"] else None,
@@ -160,5 +161,5 @@ def write_yaml(conf, path_yaml):
                 sort_keys=False,
             )
         )
-        file.write(conf["metadata"]["latex"]["header-includes"])
+        file.write(conf["metadata"]["latex"]["header-includes"]) if "header-includes" in conf["metadata"]["latex"] else None
 
