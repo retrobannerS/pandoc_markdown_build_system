@@ -16,7 +16,7 @@ args = [
     "--metadata-file=tmp/metadata.yaml",                        # файл с метаданными
     # "--citeproc",                                             # включить обработку цитирований, нужно указать bibliography
 ]
-src = [""]
+src = ["01.md"]
 out-name = "output.pdf"
 
 [metadata.general]
