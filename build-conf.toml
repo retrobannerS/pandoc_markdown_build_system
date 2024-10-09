@@ -1,5 +1,5 @@
 [image-optimization]
-enabled  = false
+enabled  = true
 quality  = 95
 max-size = 1500
 
@@ -12,10 +12,11 @@ args = [
     # "--lua-filter=filters/underline.lua",                     # фильтр для подчёркивания текста
     "--lua-filter=filters/center-images.lua",                   # фильтр для центрирования изображений (не нужен, если пишете на LaTeX и вставляете картинки через него)
     "--lua-filter=filters/word-count.lua",                      # фильтр для подсчёта слов в документе
+    "--lua-filter=filters/replace-image-path.lua",               # фильтр для корректной вставки изображений, если включен image-optimization.
     "--metadata-file=tmp/metadata.yaml",                        # файл с метаданными
     # "--citeproc",                                             # включить обработку цитирований, нужно указать bibliography
 ]
-src = ["01.md"]
+src = [""]
 out-name = "output.pdf"
 
 [metadata.general]
