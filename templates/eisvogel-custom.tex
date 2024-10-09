@@ -628,7 +628,7 @@ $endif$
 %
 % captions
 %
-\definecolor{caption-color}{HTML}{000000}
+\definecolor{caption-color}{HTML}{$if(caption-color)$$caption-color$$else$777777$endif$}
 $if(beamer)$
 $else$
 \usepackage[font={stretch=1.2}, textfont={color=caption-color}, position=top, skip=4mm, labelfont=bf, singlelinecheck=false, justification=$if(caption-justification)$$caption-justification$$else$raggedright$endif$]{caption}
