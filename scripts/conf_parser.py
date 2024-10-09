@@ -2,8 +2,6 @@ import os
 import yaml
 
 def write_yaml(conf, path_yaml):
-    # images directory for latex projects
-    img_dir = os.path.join(".." if conf["project"]["latex"] else ".", "assets")
     
     with open(path_yaml, "w") as file:
         file.write(
@@ -98,7 +96,7 @@ def write_yaml(conf, path_yaml):
                     "titlepage-rule-height": conf["metadata"]["template"]["titlepage"]["titlepage-rule-height"] if "titlepage-rule-height" in conf["metadata"]["template"]["titlepage"] else None,
                     "titlepage-background": (
                         os.path.join(
-                            img_dir,
+                            "assets",
                             "title-page",
                             conf["metadata"]["template"]["titlepage"]["titlepage-background"],
                         )
@@ -107,7 +105,7 @@ def write_yaml(conf, path_yaml):
                     ),
                     "titlepage-logo": (
                         os.path.join(
-                            img_dir,
+                            "assets",
                             "title-page", 
                             conf["metadata"]["template"]["titlepage"]["titlepage-logo"],
                         )
@@ -163,44 +161,4 @@ def write_yaml(conf, path_yaml):
             )
         )
         file.write(conf["metadata"]["latex"]["header-includes"])
-
-def write_template(preambles):
-    template_flag = True
-    titlepage_flag = False
-    toc_flag = False
-
-    with open('tmp/raw_template.tex', 'r') as raw, open('tmp/template.tex', 'w') as template, open('tmp/titlepage.tex', 'w') as titlepage, open('tmp/toc.tex', 'w') as toc:
-        for line in raw:
-            if line.strip() == "\\begin{document}":
-                template_flag = False
-                continue
-
-            if line.strip() == "%% begin titlepage":
-                titlepage_flag = True
-                continue
-
-            if line.strip() == "%% end titlepage":
-                titlepage_flag = False
-                continue
-
-            if line.strip() == "% \\maketitle":
-                toc_flag = True
-                continue
-
-            if line.strip() == "\\end{document}":
-                toc_flag = False
-                break
-
-            if template_flag: template.write(line)
-            if titlepage_flag: titlepage.write(line)
-            if toc_flag: toc.write(line)
-
-    with open('tmp/template.tex', 'a') as template:          
-        for preamble in preambles:
-            template.write(f"%%\n%% begin {preamble}\n%%\n\n")
-            with open(preamble, 'r') as preamble_file:
-                for line in preamble_file:
-                    template.write(line)
-            template.write(f"\n\n%%\n%% end {preamble}\n%%\n\n")
-
 
