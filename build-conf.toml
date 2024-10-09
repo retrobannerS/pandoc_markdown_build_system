@@ -10,9 +10,9 @@ args = [
     "--listings",                                               # включить поддержку вставки кода в документе
     # "--lua-filter=filters/strikeout.lua",                     # фильтр для зачёркивания текста
     # "--lua-filter=filters/underline.lua",                     # фильтр для подчёркивания текста
-    "--lua-filter=filters/center-images.lua",                   # фильтр для центрирования изображений (не нужен, если пишете на LaTeX и вставляете картинки через него)
+    "--lua-filter=filters/center-images.lua",                   # фильтр для центрирования изображений
     "--lua-filter=filters/word-count.lua",                      # фильтр для подсчёта слов в документе
-    "--lua-filter=filters/replace-image-path.lua",               # фильтр для корректной вставки изображений, если включен image-optimization.
+    "--lua-filter=filters/replace-image-path.lua",              # фильтр для корректной вставки изображений, если включен image-optimization.
     "--metadata-file=tmp/metadata.yaml",                        # файл с метаданными
     # "--citeproc",                                             # включить обработку цитирований, нужно указать bibliography
 ]
@@ -32,7 +32,7 @@ lang = "ru"
 [metadata.layout]
 # block-headings = true                                                      # изменяет поведение заголовков, см. документацию т.к. есть подводные камни
 # classoption = "a4paper, 12pt, ..."                                         # опции класса документа
-documentclass = "scrreprt"                                                   # параметр класса документа(scrartct, scrbook или scrreprt), если book или report(scrbook или scrreport), то включить параметр book 
+documentclass = "scrreprt"                                                   # параметр класса документа(scrartcl, scrbook или scrreprt), если book или report(scrbook или scrreport), то включить параметр book 
 geometry = "left=2cm, right=2cm, top=2cm, bottom=2cm, footskip=5cm"          # поля страницы
 # hyperrefoptions = "linktoc=all, pdfwindowui, pdfpagemode=FullScreen, ..."  # опции гиперссылок
 indent = true                                                                # отступы в абзацах
