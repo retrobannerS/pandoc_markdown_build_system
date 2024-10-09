@@ -1,6 +1,6 @@
-# Универсальный шаблон для написания документов и конспектов <!-- omit in toc -->
+# Система сборки MarkDown файлов, использующая Pandoc <!-- omit in toc -->
 
-## Table of Content <!-- omit in toc -->
+## Содержание <!-- omit in toc -->
 
 - [Установка](#установка)
   - [Python](#python)
@@ -15,7 +15,7 @@
 - [Пример](#пример)
 - [Шаблоны](#шаблоны)
 - [Фильтры Pandoc](#фильтры-pandoc)
-- [image optimizer](#image-optimizer)
+- [Оптимизация изображений](#оптимизация-изображений)
 
 ## Установка
 
@@ -84,16 +84,23 @@ sudo xargs tlmgr install < path_to_project/tex_requirements.txt
 Get-Content path_to_project/tex_requirements.txt | ForEach-Object { tlmgr install $_ }
 ```
 
-не забудьте вместо ```path_to_project``` вставить путь до проекта.
+не забудьте вместо `path_to_project` вставить путь до проекта.
 
 ## Настройка
 
 Все настройки системы сборки находятся в конфигурационном файле [build-conf.toml](/build-conf.toml).
 Для начала будет достаточно поменять название документа и автора в полях *title* и *author*.
-Обо всех флагах в настройказ можно почитать в [документации pandoc](https://pandoc.org/MANUAL.html) и [документации eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template/tree/master?tab=readme-ov-file#custom-template-variables).
+Обо всех флагах в настройках можно почитать в [документации pandoc](https://pandoc.org/MANUAL.html) и [документации eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template/tree/master?tab=readme-ov-file#custom-template-variables).
 
 Настройка титульной страницы производится [внутри шаблона](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L986C1-L1065C3).
 Автор, дата и название документа могут вставляться автоматически из [metadata](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/ded753f9a8533638d43d701d4dcefb816eeff9af/build-conf.toml#L21C1-L27C12).
+
+В файле [build-conf.toml](/build-conf.toml) есть некоторые настройки, которые нужно включать одновременно, то есть среди них есть зависимость:
+| Настройка 1                             | Настройка 2                                                          | Примечание                                                                                                                                                         |
+| :-------------------------------------- | :------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [image-optimization.enabled](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L2) | pandoc argument: ["--lua-filter=filters/replace-image-path.lua"](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L15) | Оптимизированные изображения сохраняются в папку tmp, и, чтобы в исходниках писать путь к оригинальному изображению, lua-filter потом заменяет "assets/" на "tmp/" |
+| pandoc argument: ["--citeproc"](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L17)     | `bibliography`                                                   | нужен файл с библиографией, чтобы обрабатывать цитирования                                                                                                         |
+| [documentclass](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L35)                     | [book](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L164)                                                           | если `documentclass` не `article`, то нужно включить `book` чтобы правильно распознавать заголовки вида `chapter`                                  |
 
 ## Использование
 
@@ -130,7 +137,7 @@ python3 ./scripts/build.py
 
 [*eisvogel-custom.tex:*](/templates/eisvogel-custom.tex)
 
-- [Можно использовать любой ```documentclass``` из списка ```scrartcl, scrbook, scrreprt```.](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L76)
+- [Можно использовать любой `documentclass` из списка `scrartcl, scrbook, scrreprt`.](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L76)
 - Адаптирован для русского языка. [Здесь](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L836C3-L837C27) и [здесь](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L873C3-L884C32).
 - [Добавлена переменная цвета подписей к картинкам/таблицам.](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L683C1-L683C89)
 - [Добавлена переменная использования **metadata** на титульной странице.](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/cf3c7ca2385296278566fb2539825b8f307be8fc/templates/eisvogel-custom.tex#L1017C9-L1017C31)
@@ -154,4 +161,28 @@ python3 ./scripts/build.py
 
 В шаблон уже встроены некоторые фильтры, которые можно включать и выключать в конфигурационном файле [build-conf.toml](/build-conf.toml).
 
-## image optimizer
+## Оптимизация изображений
+
+Когда в исходниках набирается достаточное количество изображений(особенно тяжеловесных формата `PNG`), то выходной файл формата `PDF` становится слишком большого размера. Для решения этой проблемы есть опция [image-optimization](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L1) в конфигурационном файле [build-conf.toml](/build-conf.toml).
+
+Если параметр `enabled` включен, то любое изображение формата `.png`, `.jpg` или `.jpeg` из папки **assets/images** будет приведено к формату `.jpg` в соответствии указанным качеством изображения `quality` (в пределах `1-100`) и максимальным разрешением по одной из сторон `max-size`(в `пикселях`).
+
+Например, изображение формата `.png` с разрешением `3000x2000` при параметре `max-size = 1500` будет сохранено в формате  `.jpg` с разрешением `1500x1000`.
+Другой пример, изображение  формата `.png` с разрешением `1000x500` при параметре `max-size = 1500` будет сохранено в формате  `.jpg` с разрешением `1000x500`.
+Пропорция разрешения сохраняется, но при слишком больших значениях оно приводится к `max-size` по бОльшей из сторон.
+
+Оптимизированные изображения сохраняются в директорию **tmp/images**. Lua-filter [replace-image-path.lua](/filters/replace-image-path.lua), если он включен, при формировании `PDF` заменит все вхождения `assets/images` на `tmp/images`.
+
+Например,
+
+```markdown
+![title][assets/images/dog/1.png]
+```
+
+в процессе компиляции заменится на
+
+```markdown
+![title][tmp/images/dog/1.png]
+```
+
+автоматически, поэтому в исходных файлах можно пользоваться привычными путями до ваших оригинальных, еще не оптимизированных изображений.
