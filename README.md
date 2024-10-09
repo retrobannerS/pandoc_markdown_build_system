@@ -171,7 +171,7 @@ python3 ./scripts/build.py
 Другой пример, изображение  формата `.png` с разрешением `1000x500` при параметре `max-size = 1500` будет сохранено в формате  `.jpg` с разрешением `1000x500`.
 Пропорция разрешения сохраняется, но при слишком больших значениях оно приводится к `max-size` по бОльшей из сторон.
 
-Оптимизированные изображения сохраняются в директорию **tmp/images**. Lua-filter [replace-image-path.lua](/filters/replace-image-path.lua), если он включен, при формировании `PDF` заменит все вхождения `assets/images` на `tmp/images`.
+Оптимизированные изображения сохраняются в директорию **tmp/images**. Lua-filter [replace-image-path.lua](/filters/replace-image-path.lua), если он включен, при формировании `PDF` заменит все вхождения `assets/images` и `./assets/images` на `tmp/images`.
 
 Например,
 
