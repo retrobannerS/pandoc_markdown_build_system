@@ -5,13 +5,13 @@ args = [
     "--listings",                                               # включить поддержку вставки кода в документе
     # "--lua-filter=filters/strikeout.lua",                     # фильтр для зачёркивания текста
     # "--lua-filter=filters/underline.lua",                     # фильтр для подчёркивания текста
-    # "--lua-filter=filters/center-images.lua",                 # фильтр для центрирования изображений (не нужен, если пишете на LaTeX и вставляете картинки через него)
-    # "--lua-filter=filters/word-count.lua",                    # фильтр для подсчёта слов в документе
+    "--lua-filter=filters/center-images.lua",                   # фильтр для центрирования изображений (не нужен, если пишете на LaTeX и вставляете картинки через него)
+    "--lua-filter=filters/word-count.lua",                      # фильтр для подсчёта слов в документе
     "--metadata-file=tmp/metadata.yaml",                        # файл с метаданными
     "--citeproc",                                               # включить обработку цитирований
 ]
-src = ["*"]
-out-name = "raw_template.tex"
+src = ["some file"]
+out-name = "output.pdf"
 
 [metadata.general]
 title = "Название документа"
