@@ -24,7 +24,10 @@ def optimize_image(input_dir, file_path, output_dir, quality, max_size):
         img = img.convert("RGB")
         
         new_file_path = file_path.replace(input_dir, output_dir)
-        new_file_path = os.path.splitext(new_file_path)[0] + ".jpg"
+        if original_format == "PNG":
+            new_file_path = os.path.splitext(new_file_path)[0] + "_png" + ".jpg"
+        else:
+            new_file_path = os.path.splitext(new_file_path)[0] + ".jpg"
 
         new_file_dir = os.path.dirname(new_file_path)
         os.makedirs(new_file_dir, exist_ok=True)
