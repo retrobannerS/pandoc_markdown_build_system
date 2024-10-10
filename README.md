@@ -101,11 +101,11 @@ Get-Content path_to_project/tex_requirements.txt | ForEach-Object { tlmgr instal
 Автор, дата и название документа могут вставляться автоматически из [metadata](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/ded753f9a8533638d43d701d4dcefb816eeff9af/build-conf.toml#L21C1-L27C12).
 
 В файле [build-conf.toml](/build-conf.toml) есть некоторые настройки, которые нужно включать одновременно, то есть среди них есть зависимость:
-| Настройка 1                             | Настройка 2                                                          | Примечание                                                                                                                                                         |
-| :-------------------------------------- | :------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [image-optimization.enabled](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L2) | pandoc argument: ["--lua-filter=filters/replace-image-path.lua"](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L15) | Оптимизированные изображения сохраняются в папку tmp, и, чтобы в исходниках писать путь к оригинальному изображению, lua-filter потом заменяет "assets/" на "tmp/" |
-| pandoc argument: ["--citeproc"](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L17)     | `bibliography`                                                   | нужен файл с библиографией, чтобы обрабатывать цитирования                                                                                                         |
-| [documentclass](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L35)                     | [book](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L164)                                                           | если `documentclass` не `article`, то нужно включить `book` чтобы правильно распознавать заголовки вида `chapter`                                  |
+| Настройка 1                                                                                                                                                     | Настройка 2                                                                                                                                                                                      | Примечание                                                                                                                                                         |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [image-optimization.enabled](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L2)     | pandoc argument: ["--lua-filter=filters/replace-image-path.lua"](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L15) | Оптимизированные изображения сохраняются в папку tmp, и, чтобы в исходниках писать путь к оригинальному изображению, lua-filter потом заменяет "assets/" на "tmp/" |
+| pandoc argument: ["--citeproc"](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L17) | `bibliography`                                                                                                                                                                                   | нужен файл с библиографией, чтобы обрабатывать цитирования                                                                                                         |
+| [documentclass](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L35)                 | [book](https://github.com/retrobannerS/pandoc_markdown_build_system/blob/4e4e5f5a815a5f62bb0d30f2c03904237eb89984/build-conf.toml#L164)                                                          | если `documentclass` не `article`, то нужно включить `book` чтобы правильно распознавать заголовки вида `chapter`                                                  |
 
 ## Использование
 
@@ -126,15 +126,25 @@ Get-Content path_to_project/tex_requirements.txt | ForEach-Object { tlmgr instal
 python3 ./scripts/build.py
 ```
 
-Папка **example** и файлы [README.md](/README.md), [title-page-01.jpg](/title-page-01.jpg) и [title-page-02.jpg](/title-page-02.jpg) независимы и могут быть удалены для личного использования этого проекта.
+Папка **example** и файлы:
+
+- [README.md](/README.md)
+- [title-page-01.jpg](/title-page-01.jpg)
+- [title-page-02.jpg](/title-page-02.jpg)
+- [example1.jpg](/example1.jpg)
+- [example2.jpg](/example12.jpg)
+- [example3.jpg](/example3.jpg)
+- [example4.jpg](/example4.jpg)
+
+независимы и могут быть удалены для личного использования этого проекта.
 
 ## Пример
 
 В корневой папке вы можете встретить **example** - пример сборки файлов в один PDF.
 
-| ![](/example1.jpg) | ![](/example2.jpg) |
-| ------------------ | ------------------ |
-| ![](/example3.jpg) | ![](/example4.jpg) |
+| [![](/example1.jpg)](/example1.jpg) | [![](/example2.jpg)](/example2.jpg) |
+| ----------------------------------- | ----------------------------------- |
+| [![](/example3.jpg)](/example3.jpg) | [![](/example4.jpg)](/example4.jpg) |
 
 ## Шаблоны
 
@@ -154,7 +164,7 @@ python3 ./scripts/build.py
 
 | Без логотипа                                  | С логотипом                                  |
 | --------------------------------------------- | -------------------------------------------- |
-| ![титульник без логотипа](/title-page-01.jpg) | ![титульник с логотипом](/title-page-02.jpg) |
+| [![титульник без логотипа](/title-page-01.jpg)](/title-page-01.jpg) | [![титульник с логотипом](/title-page-02.jpg)](/title-page-02.jpg) |
 
 ## Фильтры Pandoc
 
@@ -181,13 +191,13 @@ python3 ./scripts/build.py
 Например,
 
 ```markdown
-![title][assets/images/dog/1.png]
+![title][assets/images/dogs/1.png]
 ```
 
 в процессе компиляции заменится на
 
 ```markdown
-![title][tmp/images/dog/1.png]
+![title][tmp/images/dogs/1.png]
 ```
 
 автоматически, поэтому в исходных файлах можно пользоваться привычными путями до ваших оригинальных, еще не оптимизированных изображений.
